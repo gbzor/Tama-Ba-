@@ -49,7 +49,7 @@ export function Nav() {
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden p-2 -mr-2"
+            className="md:hidden p-3 -mr-3 min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
