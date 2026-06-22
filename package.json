@@ -1,0 +1,37 @@
+{
+  "name": "tama-ba",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tama Ba? — A Philippine media literacy platform that helps young Filipinos recognize, resist, and report disinformation.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
+    "isomorphic-dompurify": "^2.16.0",
+    "lucide-react": "^0.460.0",
+    "next": "15.5.18",
+    "react": "^19.1.7",
+    "react-dom": "^19.1.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.15.0",
+    "eslint-config-next": "15.5.18",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

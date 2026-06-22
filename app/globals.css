@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-newsprint text-ink font-sans;
+    /* Subtle paper texture: a barely-there noise layer */
+    background-image:
+      radial-gradient(rgba(14, 14, 12, 0.018) 1px, transparent 1px);
+    background-size: 3px 3px;
+  }
+
+  ::selection {
+    @apply bg-ink text-newsprint;
+  }
+
+  /* Visible focus rings on every interactive element */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ink ring-offset-2 ring-offset-newsprint;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  /* The signature proofreader marks. */
+  /* These are SVG paths drawn over text — see components/annotation.tsx */
+  .mark-circle {
+    fill: none;
+    stroke: theme('colors.proof.DEFAULT');
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    animation: mark-draw 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+  }
+
+  .mark-strike {
+    fill: none;
+    stroke: theme('colors.proof.DEFAULT');
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: mark-draw 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .mark-underline {
+    fill: none;
+    stroke: theme('colors.proof.DEFAULT');
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: mark-draw 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+  }
+
+  @keyframes mark-draw {
+    to { stroke-dashoffset: 0; }
+  }
+
+  /* Editorial divider — a single hairline with a small gap */
+  .editorial-rule {
+    @apply relative h-px bg-ink/15;
+  }
+
+  /* Quiet card — used for lessons, quiz options */
+  .card {
+    @apply bg-newsprint border border-ink/8 rounded-sm transition-all duration-200;
+  }
+
+  .card-interactive {
+    @apply card hover:border-ink/25 hover:shadow-[0_2px_0_0_rgba(14,14,12,0.06)] hover:-translate-y-px cursor-pointer;
+  }
+}
+
+@layer utilities {
+  /* Editorial measure — optimal line length for reading */
+  .measure {
+    @apply max-w-reading;
+  }
+
+  /* Tiny caps label — eyebrow text */
+  .eyebrow {
+    @apply font-mono text-[0.7rem] uppercase tracking-[0.18em] text-ink-muted;
+  }
+}
