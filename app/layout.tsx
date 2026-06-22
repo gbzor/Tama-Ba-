@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import { headers } from 'next/headers'
 import { Newsreader, Geist, Geist_Mono } from 'next/font/google'
 import { Nav } from '@/components/nav'
 import { Footer } from '@/components/footer'
@@ -62,13 +63,15 @@ export const viewport: Viewport = {
   themeColor: '#F5F1E8',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const nonce = (await headers()).get('x-nonce') ?? ''
+
   return (
     <html
       lang="en"
       className={`${newsreader.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
-      <body className="min-h-screen flex flex-col">
+      <body className="min-h-screen flex flex-col" nonce={nonce}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-ink focus:text-newsprint focus:text-sm"
