@@ -55,10 +55,21 @@ const STANDARD_GUIDANCE = [
   'Check the date. A real-looking story from years ago, recycled today, is one of the most common patterns in Philippine social media.',
 ]
 
+const MAX_BODY_BYTES = 8192
+
 export async function POST(req: NextRequest) {
+  const contentLength = req.headers.get('content-length')
+  if (contentLength && parseInt(contentLength, 10) > MAX_BODY_BYTES) {
+    return NextResponse.json({ error: 'Request too large.' }, { status: 413 })
+  }
+
   let body: unknown
   try {
-    body = await req.json()
+    const raw = await req.text()
+    if (raw.length > MAX_BODY_BYTES) {
+      return NextResponse.json({ error: 'Request too large.' }, { status: 413 })
+    }
+    body = JSON.parse(raw)
   } catch {
     return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 })
   }
